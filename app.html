@@ -95,18 +95,53 @@
         </nav>
 
         <main class="container">
-            <h1>APP UI GOES HERE</h1>
-            <input
-                class="form-control my-3"
-                placeholder="Enter a message"
-                type="text"
-                style="width: 12rem"
-                name="message"
-                id="message"
-            />
-            <button id="btnSubmit" class="btn btn-primary">
-                Display Message
-            </button>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col">
+                    <h1 class="display-5 fw-bold">Word Play</h1>
+                    <h2 class="lead border-2 border-bottom">
+                        A Coding Challenge
+                    </h2>
+                    <p>
+                        Word Play: A palindrome game to make up words that can be read forwards and backwards. Write a program to
+                        display the user's input in reverse and can be read the same way.
+                    </p>
+                    <p>
+                        To begin, enter a message in the input box and press the
+                        button to display in reverse
+                    </p>
+                </div>
+                <div class="col">
+                    <form action="#">
+                        <label for="userInput" class="form-label fw-bold"
+                            >Type in a word to see if it can be read the same in reverse.</label
+                        >
+                        <input
+                            class="form-control"
+                            name="userInput"
+                            id="userInput"
+                            placeholder="Enter a message"
+                            type="text"
+                        />
+                        <button
+                            type="button"
+                            id="btnSubmit"
+                            class="my-3 btn btn-primary"
+                        >
+                            Flip it!
+                        </button>
+                    </form>
+                    <div
+                        class="alert alert-success mt-3 invisible"
+                        id="alert"
+                        role="alert"
+                    >
+                        <h2 class="alert-heading">Nice Work!</h2>
+                        <p id="msg">
+                            <!-- Reversed Message goes Here -->
+                        </p>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer class="py-3 container-fluid">
@@ -154,7 +189,7 @@
             let button = document.getElementById('btnSubmit');
 
             // tell the button to ru our displayMessage function when clicked
-            button.addEventListener('click', displayMessage);
+            button.addEventListener('click', getValues);
         </script>
     </body>
 </html>

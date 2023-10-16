@@ -1,15 +1,34 @@
-function displayMessage() {
-    // get the text out of our <input> and assign it to a variable
-    let msg = document.getElementById('message').value;
+function getValues() {
+    let message = document.getElementById('userInput').value;
 
-    // alert('Hello Guardian Cohort!')
-    Swal.fire({
-        icon: 'success',
-        backdrop: false,
-        title: '<strong>Word Play</strong>',
-        text: msg, // <---- replace this text with that variable
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    });
+    if (message.length == 0 && (revMsg == message) ) {
+        Swal.fire ({
+            icon: 'error',
+            backdrop: false,
+            title: 'Uh oh!',
+            text: `I'm not sure how to read this!`
+        });
+    } else {
+        let revMsg = checkForPalindrome(message);
+        displayResults(revMsg);
+    }
 }
+
+function checkForPalindrome(input) {
+    let output = '';
+    const regEx = /[^A-Za-z0-9_]/g
+
+    for (let i = input.length-1; i >= 0; i--) {
+        output += input[i];
+    }
+    return output;
+}
+
+function displayResults(message) {
+    document.getElementById('msg').textContent = `Your message read forward and backwards is: ${message}`;
+
+    document.getElementById('alert').classList.remove('invisible');
+}
+
+
+
