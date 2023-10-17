@@ -1,7 +1,6 @@
-// get the user's message to reverse
+// get the text input from the page
 function getValues() {
 
-    // get the text input from the page
     let message = document.getElementById('userInput').value;
 
     if (message.length == 0) {
@@ -12,7 +11,7 @@ function getValues() {
             text: 'Please enter a message to check for a palindrome'
         });
     } else {
-        let isPalindrome = checkForPalindrom(message);
+        let isPalindrome = checkForPalindrome(message);
 
         displayResults(isPalindrome);
     }
@@ -28,11 +27,10 @@ function reverseMessage(userInput) { // if input = hello
         output += userInput[i]
     }
 
-    // turns ['o','l','l','e','h'] into ['olleh']
     return output;
 }
 
-function checkForPalindrom(input) {
+function checkForPalindrome(input) {
     let regex = /[^a-zA-Z0-9]/g;
 
     input = input.replace(regex, '');

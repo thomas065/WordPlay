@@ -112,10 +112,9 @@
                 >
                     <pre class="line-numbers">
                         <code class="language-js">
-                            // get the user's message to reverse
+                            // get the text input from the page
                             function getValues() {
 
-                                // get the text input from the page
                                 let message = document.getElementById('userInput').value;
 
                                 if (message.length == 0) {
@@ -126,7 +125,7 @@
                                         text: 'Please enter a message to check for a palindrome'
                                     });
                                 } else {
-                                    let isPalindrome = checkForPalindrom(message);
+                                    let isPalindrome = checkForPalindrome(message);
 
                                     displayResults(isPalindrome);
                                 }
@@ -142,11 +141,10 @@
                                     output += userInput[i]
                                 }
 
-                                // turns ['o','l','l','e','h'] into ['olleh']
                                 return output;
                             }
 
-                            function checkForPalindrom(input) {
+                            function checkForPalindrome(input) {
                                 let regex = /[^a-zA-Z0-9]/g;
 
                                 input = input.replace(regex, '');
@@ -164,7 +162,7 @@
                             // display the reverse message
                             function displayResults(isPalindrome) {
                                 document.getElementById('alert').classList.remove('invisible', 'alert-danger', 'alert-success');
-                            
+
                                 if (isPalindrome == true) {
                                     document.getElementById('msg').textContent = `Nice Job, that's a palindrome`;
                                     document.getElementById('alert').classList.add('alert-success');
@@ -182,8 +180,10 @@
                         <code>getValues()</code> is the main function that gets
                         called when you click the "Check" button. It first
                         retrieves the user's input from the userInput element
-                        and trims any extra spaces. If the input is empty, it
-                        displays a Sweet Alert error message.
+                        and further down the code,
+                        <code>checkForPalindrome()</code> trims any extra spaces
+                        as well as remove special characters. If the input is
+                        empty, it displays a Sweet Alert error message.
                     </p>
                     <p>
                         If there is input, it checks if it's a palindrome using
@@ -199,7 +199,8 @@
                     </p>
                     <p>
                         <code>displayResults()</code> is responsible for showing
-                        the message to the user.
+                        the message to the user with a green for success or red
+                        for incorrect message.
                     </p>
                 </div>
             </div>
