@@ -1,56 +1,62 @@
+// get the user's message to reverse
 function getValues() {
-    const userInput = document.getElementById('userInput');
-    const message = userInput.value.trim();
 
-    if (message.length === 0) {
-        displayResults('Uh oh!', `I'm not sure how to read this!`, 'error');
+    // get the text input from the page
+    let message = document.getElementById('userInput').value;
+
+    if (message.length == 0) {
+        Swal.fire ({
+            icon: 'error',
+            backdrop: false,
+            title: 'Oops!',
+            text: 'Please enter a message to check for a palindrome'
+        });
     } else {
-        const isPalindrome = checkForPalindrome(message);
+        let isPalindrome = checkForPalindrom(message);
 
-        if (isPalindrome) {
-            displayResults(
-                'Success!',
-                `${message} read forward and backward is a palindrome.`,
-                'success'
-            );
-            setAlertClass('alert-success');
-        } else {
-            displayResults('Oops!', `${message} is not a palindrome!`, 'error');
-            setAlertClass('alert-danger');
-        }
+        displayResults(isPalindrome);
     }
 }
 
-function checkForPalindrome(word) {
-    word = word.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-    let left = 0;
-    let right = word.length - 1;
+// reverse the message
+function reverseMessage(userInput) { // if input = hello
 
-    while (left < right) {
-        if (word[left] !== word[right]) {
-            return false;
-        }
-        left++;
-        right--;
+    let output = ''; // output = ['h', 'e', 'l', 'l', 'o']
+
+    for (let i = userInput.length-1; i >= 0; i--) {
+
+        output += userInput[i]
     }
-    return true;
+
+    // turns ['o','l','l','e','h'] into ['olleh']
+    return output;
 }
 
-function displayResults(title, text, icon) {
-    Swal.fire({
-        icon: icon,
-        backdrop: false,
-        title: title,
-        text: text,
-        showConfirmButton: false,
-        timer: 1000,
-        timerProgressBar: true,
-    });
+function checkForPalindrom(input) {
+    let regex = /[^a-zA-Z0-9]/g;
+
+    input = input.replace(regex, '');
+    input = input.toLowerCase();
+
+    let reversed = reverseMessage(input)
+
+    if (reversed === input) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-function setAlertClass(alertClass) {
-    // Set the alert class in the 'alert' element
-    const alertElement = document.getElementById('alert');
-    alertElement.classList.remove('invisible');
-    alertElement.classList.add(alertClass);
+// display the reverse message
+function displayResults(isPalindrome) {
+    document.getElementById('alert').classList.remove('invisible', 'alert-danger', 'alert-success');
+
+    if (isPalindrome == true) {
+        document.getElementById('msg').textContent = `Nice Job, that's a palindrome`;
+        document.getElementById('alert').classList.add('alert-success');
+    } else {
+        document.getElementById('msg').textContent = `Oh no, that's not a palindrome`;
+        document.getElementById('alert').classList.add('alert-danger');
+    }
 }
+
