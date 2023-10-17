@@ -1,31 +1,56 @@
 function getValues() {
-    let message = document.getElementById('userInput').value;
+    const userInput = document.getElementById('userInput');
+    const message = userInput.value.trim();
 
-    if (message.length == 0) {
-        Swal.fire ({
-            icon: 'error',
-            backdrop: false,
-            title: 'Uh oh!',
-            text: `I'm not sure how to read this!`
-        });
+    if (message.length === 0) {
+        displayResults('Uh oh!', `I'm not sure how to read this!`, 'error');
     } else {
-        let revMsg = checkForPalindrome(message);
-        displayResults(revMsg);
+        const isPalindrome = checkForPalindrome(message);
+
+        if (isPalindrome) {
+            displayResults(
+                'Success!',
+                `${message} read forward and backward is a palindrome.`,
+                'success'
+            );
+            setAlertClass('alert-success');
+        } else {
+            displayResults('Oops!', `${message} is not a palindrome!`, 'error');
+            setAlertClass('alert-danger');
+        }
     }
 }
 
-function checkForPalindrome(input) {
-    let output = '';
+function checkForPalindrome(word) {
+    word = word.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    let left = 0;
+    let right = word.length - 1;
 
-    for (let i = input.length-1; i >= 0; i--) {
-        output += input[i];
+    while (left < right) {
+        if (word[left] !== word[right]) {
+            return false;
+        }
+        left++;
+        right--;
     }
-    return output;
+    return true;
 }
 
-function displayResults(message) {
-    document.getElementById('msg').textContent = `Your message read forward and backwards is: ${message}`;
+function displayResults(title, text, icon) {
+    Swal.fire({
+        icon: icon,
+        backdrop: false,
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+    });
+}
 
-    document.getElementById('alert').classList.remove('invisible');
-    document.getElementById('alert').classList.add('alert-success');
+function setAlertClass(alertClass) {
+    // Set the alert class in the 'alert' element
+    const alertElement = document.getElementById('alert');
+    alertElement.classList.remove('invisible');
+    alertElement.classList.add(alertClass);
 }
