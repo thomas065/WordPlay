@@ -100,35 +100,96 @@
         <main class="container py-3">
             <h1 class="border-bottom border-2 border-dark">The Code</h1>
             <div class="row">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-8 synapse overflow-y-auto overflow-x-hidden">
                     <pre class="line-numbers">
                         <code class="language-js">
-    function displayMessage() {
-        // get the text out of our input and assign it to a variable
-        let msg = document.getElementById('message').value;
-
-        // alert('Hello Guardian Cohort!')
-        Swal.fire(
-            {
-                icon: 'success',
-                backdrop: false,
-                title: '<strong>Word Play</strong>',
-                text: msg, // <---- replace this text with that variable
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-            }
-        );
-    }
+                            function getValues() {
+                                const userInput = document.getElementById('userInput');
+                                const message = userInput.value.trim();
+                            
+                                if (message.length === 0) {
+                                    displayResults('Uh oh!', `I'm not sure how to read this!`, 'error');
+                                } else {
+                                    const isPalindrome = checkForPalindrome(message);
+                            
+                                    if (isPalindrome) {
+                                        displayResults(
+                                            'Success!',
+                                            `${message} read forward and backward is a palindrome.`,
+                                            'success'
+                                        );
+                                        setAlertClass('alert-success');
+                                    } else {
+                                        displayResults('Oops!', `${message} is not a palindrome!`, 'error');
+                                        setAlertClass('alert-danger');
+                                    }
+                                }
+                            }
+                            
+                            function checkForPalindrome(word) {
+                                word = word.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                                let left = 0;
+                                let right = word.length - 1;
+                            
+                                while (left < right) {
+                                    if (word[left] !== word[right]) {
+                                        return false;
+                                    }
+                                    left++;
+                                    right--;
+                                }
+                                return true;
+                            }
+                            
+                            function displayResults(title, text, icon) {
+                                Swal.fire({
+                                    icon: icon,
+                                    backdrop: false,
+                                    title: title,
+                                    text: text,
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                    timerProgressBar: true,
+                                });
+                            }
+                            
+                            function setAlertClass(alertClass) {
+                                // Set the alert class in the 'alert' element
+                                const alertElement = document.getElementById('alert');
+                                alertElement.classList.remove('invisible');
+                                alertElement.classList.add(alertClass);
+                            }
+                            
                         </code>
                 </pre>
                 </div>
                 <div class="col-12 col-lg-4">
                     <!-- Explain your code here -->
-                    <p>The code is structured in one function:</p>
                     <p>
-                        <code>displayMessage()</code> displays a SweetAlert when
-                        the button is presse.
+                        <code>getValues()</code> is the main function that gets
+                        called when you click the "Check" button. It first
+                        retrieves the user's input from the userInput element
+                        and trims any extra spaces. If the input is empty, it
+                        displays a Sweet Alert error message.
+                    </p>
+                    <p>
+                        If there is input, it checks if it's a palindrome using
+                        the <code>checkForPalindrome()</code>
+                        function. Depending on the result, it displays a success
+                        or error message and updates the alert class using the
+                        <code>setAlertClass()</code> function.
+                    </p>
+                    <p>
+                        <code>checkForPalindrome()</code> removes
+                        non-alphanumeric characters and converts the word to
+                        lowercase. Then, it compares the characters from the
+                        start and end of the word to determine if it's a
+                        palindrome. If not, it returns false; otherwise, it
+                        returns true.
+                    </p>
+                    <p>
+                        <code>displayResults()</code> is responsible for showing the message to the user.
+                        <code>setAlertClass()</code> is used to update the alert's class based on the result (success or error).
                     </p>
                 </div>
             </div>
