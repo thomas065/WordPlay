@@ -46,7 +46,7 @@ footer .bi:hover {
 }
 
 .app-logo {
-    max-width: 400px;
+    min-width: 350px;
 }
 
 .synapse {
